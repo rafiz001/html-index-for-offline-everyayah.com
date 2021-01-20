@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Every Ayah</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="app-theme" content="#000000">
+</head>
+<body style="background: black;color: white;">
+<noscript>This page needs JavaScript that is not allowed from your browser.</noscript>
+	<div style="border: 2px dashed cyan"><center>
+	<select id="surah" oninput="saymax(this.value);">
+</select><br><br><div id="max"></div>
+Ayat:<input type="number" id="aya" min="0" max="99"><br><br>
+<input type="checkbox" id="ch" value="a">Auto Play<br><br>
+<input type="submit" id="s" onclick="t();" value="Play"><br><br>
+
+<div id="as"></div>
+</center></div>
+<script type="text/javascript">
+	var folder="000_versebyverse";
+	var a=[0,7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
+	var s=["","Al-Fatihah","Al-Baqarah","Aali Imran","An-Nisa’ ","Al-Ma’idah","Al-An’am","Al-A’raf","Al-Anfal","At-Taubah","Yunus","Hud","Yusuf","Ar-Ra’d","Ibrahim","Al-Hijr","An-Nahl","Al-Isra’","Al-Kahf","Maryam","Ta-Ha","Al-Anbiya’","Al-Haj","Al-Mu’minun","An-Nur","Al-Furqan","Ash-Shu’ara’","An-Naml","Al-Qasas","Al-Ankabut","Ar-Rum","Luqman","As-Sajdah","Al-Ahzab","Saba’","Al-Fatir","Ya-Sin","As-Saffah","Sad","Az-Zumar","Ghafar","Fusilat","Ash-Shura","Az-Zukhruf","Ad-Dukhan","Al-Jathiyah","Al-Ahqaf","Muhammad","Al-Fat’h","Al-Hujurat","Qaf","Adz-Dzariyah","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi’ah","Al-Hadid","Al-Mujadilah","Al-Hashr","Al-Mumtahanah","As-Saf","Al-Jum’ah","Al-Munafiqun","At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk – ","Al-Qalam","Al-Haqqah","Al-Ma’arij","Nuh","Al-Jinn","Al-Muzammil","Al-Mudaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba’","An-Nazi’at","‘Abasa","At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Inshiqaq","Al-Buruj","At-Tariq","Al-A’la","Al-Ghashiyah","Al-Fajr","Al-Balad","Ash-Shams","Al-Layl","Adh-Dhuha","Al-Inshirah","At-Tin","Al-‘Alaq","Al-Qadar","Al-Bayinah","Az-Zalzalah","Al-‘Adiyah","Al-Qari’ah","At-Takathur","Al-‘Asr","Al-Humazah","Al-Fil","Quraish","Al-Ma’un","Al-Kauthar","Al-Kafirun","An-Nasr","Al-Masad","Al-Ikhlas","Al-Falaq","An-Nas"];
+
+/*
+printing Surah option:
+
+*/
+var sura1="";var ii=0;
+for (var i = 1; i < 114; i++) {
+  if(i<10){ii="00"+i;}
+else if(i<100){ii="0"+i;}
+else if(i<1000){ii=i;}
+	sura1+="<option value=\""+ii+"\">"+i+" - "+s[i]+"</option>";
+}
+document.getElementById("surah").innerHTML=sura1;
+
+
+/*
+
+Take input
+
+
+*/
+function t() {
+	var aya=document.getElementById("aya").value;
+  var surah=document.getElementById("surah").value;
+  var naya;
+  if(aya<10){naya="00"+aya;}
+else if(aya<100){naya="0"+aya;}
+else if(aya<1000){naya=aya;}
+pll(surah,naya);
+
+}
+
+/*
+
+Output function:
+
+*/
+
+
+function pll(surah,naya){
+
+	document.getElementById("as").innerHTML="Trying to play: "+folder+"/"+surah+naya+".mp3<br><audio id=\"au\"controls ><source src=\""+folder+"/"+surah+naya+".mp3\" ></audio>";
+
+
+document.getElementById("au").play();
+
+if (naya>a[parseInt(surah)]) {document.getElementById("as").innerHTML="Sorry invalid input!"}
+
+/*
+
+Auto play:
+
+
+*/
+if((parseInt(naya)!=parseInt(a[parseInt(surah)]))&&document.getElementById("ch").checked){
+ 
+	document.getElementById("au").onended = function() {
+    document.getElementById("aya").value=parseInt(naya)+1;
+    t();
+};
+}else{
+
+	document.getElementById("au").onended = function() {
+    document.getElementById("as").innerHTML="";
+   
+};
+}
+}
+
+
+
+function saymax(sr){
+document.getElementById("max").innerHTML="Max ayat for Surah "+s[parseInt(sr)]+"="+a[parseInt(sr)];
+document.getElementById("aya").max=a[parseInt(sr)];
+}
+</script>
+</body>
+</html>
