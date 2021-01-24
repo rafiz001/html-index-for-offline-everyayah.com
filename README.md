@@ -7,6 +7,8 @@ Offline index page to listen every each ayah of QURAN from everyayah.com using h
 * Now download <a href="https://rafiz001.github.io/html-index-for-offline-everyayah.com/every.zip" download>this zip</a> and copy index.html at outside of "000_versebyverse" folder.
 
 * Now open that index.html page.
+* Android user need to go file:///storage/emulated/0/Download/every/index.html this like link in their browser.
 
 ## Online demo
 * Only for sura ya-sen https://rafiz001.github.io/html-index-for-offline-everyayah.com/
+ 
